@@ -43,7 +43,7 @@
   h1{text-align:center;margin-bottom:16px;color:var(--primary)}
   h2{color:var(--secondary);margin-bottom:10px}
   .landing-options{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-top:28px}
-  .option-card{background:var(--card-bg);border-radius:16px;padding:24px;width:300px;text-align:center;box-shadow:0 16px 36px var(--shadow);cursor:pointer;border:1px solid var(--border);transition:background-color .3s,color .3s,transform .2s,box-shadow .3s}
+  .option-card{background:var(--card-bg);border-radius:16px;padding:24px;width:100%;max-width: 280px;text-align:center;box-shadow:0 16px 36px var(--shadow);cursor:pointer;border:1px solid var(--border);transition:background-color .3s,color .3s,transform .2s,box-shadow .3s}
   [data-theme="dark"] .option-card,[data-theme="dark"] .history,[data-theme="dark"] .stats,[data-theme="dark"] .player-badge,[data-theme="dark"] .toast,[data-theme="dark"] .icon-btn{ -webkit-backdrop-filter:saturate(120%) blur(10px); backdrop-filter:saturate(120%) blur(10px); box-shadow:0 18px 40px var(--shadow), inset 0 1px 0 rgba(255,255,255,.03)}
   .option-card:hover{transform:translateY(-4px)}
   .option-icon{font-size:42px;margin-bottom:14px;color:var(--accent)}
@@ -60,7 +60,14 @@
   .btn-warning{background:var(--warning);color:#111}
   .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
   .game-container{display:flex;flex-direction:column;align-items:center;gap:24px}
-  .game-board{width:min(92vw,460px);display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0}
+  .game-board {
+    width: 92vw;                 
+    max-width: 420px;             
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin: 10px auto;
+  }
   .cell{width:100%;aspect-ratio:1/1;background:var(--card-bg);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,10vw,44px);font-weight:900;cursor:pointer;box-shadow:0 10px 22px var(--shadow);user-select:none;border:1px solid var(--border);transition:background-color .2s,transform .1s,box-shadow .2s}
   .cell:hover{background:var(--card-bg)}
   @supports (background: color-mix(in srgb, white, black)) {.cell:hover{background:color-mix(in srgb, var(--accent) 24%, var(--card-bg))}}
@@ -325,7 +332,11 @@ function ping(freq=660, dur=0.07, vol=0.12){
 }
 function sfx(...args){ if(!soundOn) return; ensureAudio(); ping(...args); }
 function winSound(){ sfx(900,0.09,0.15); setTimeout(()=>sfx(1200,0.12,0.13), 90); }
-function drawSound(){ sfx(520,0.08,0.12); setTimeout(()=>sfx(420,0.08,0.1), 90); }
+function drawSound(){
+  sfx(400,0.1,0.14); 
+  setTimeout(()=>sfx(500,0.08,0.12),120);
+  setTimeout(()=>sfx(300,0.12,0.1),240);
+}
 
 function setTheme(theme){
   document.documentElement.setAttribute('data-theme', theme);
@@ -334,7 +345,9 @@ function setTheme(theme){
     const active = b.getAttribute('data-theme')===theme;
     b.setAttribute('aria-pressed', String(active));
   });
-  sfx(760, .05, .08);
+  sfx(780, 0.07, 0.12)
+  const themeNames = { light: 'Light', dark: 'Dark', sunset: 'Sunset' };
+  showToast(`Theme: ${themeNames[theme] || theme}`, 'success');
 }
 document.querySelectorAll('.theme-btn').forEach(btn=>{
   btn.addEventListener('keydown', e=>{
