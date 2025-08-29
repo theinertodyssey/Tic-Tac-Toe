@@ -16,9 +16,9 @@ The web application has following features:-
 It comes with 3 different theme:-
     •Light
         <img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-50-57" src="https://github.com/user-attachments/assets/a75b6670-421a-464b-8803-925442fd7311" />
-   •Dark
-        <img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-51-11" src="https://github.com/user-attachments/assets/d85862e0-49c1-4b55-aac3-a6e36b3493e7" />
+    •Dark
+        <img width="1903" height="1009" alt="Screenshot from 2025-08-29 15-09-03" src="https://github.com/user-attachments/assets/20fc3830-ab4e-48d0-afc3-51635eb0349f" />
     •Sunset
-        <img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-51-15" src="https://github.com/user-attachments/assets/dfa2cfc6-28d3-4764-b929-918a00824241" />
+        <img width="1903" height="1009" alt="image" src="https://github.com/user-attachments/assets/e2996d42-d69e-4783-8624-d106a8059133" />
 
 
