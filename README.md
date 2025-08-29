@@ -22,3 +22,19 @@ It comes with 3 different theme:-
         <img width="1903" height="1009" alt="image" src="https://github.com/user-attachments/assets/e2996d42-d69e-4783-8624-d106a8059133" />
 
 
+Local Game Setup:-
+PVP(player vs player): 
+<img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-52-33" src="https://github.com/user-attachments/assets/64c0b096-3a1e-49c5-8a18-d0406aa6d1c1" />
+
+CPU(vs Computer):
+<img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-52-40" src="https://github.com/user-attachments/assets/2dfd73c2-7be9-4eb0-abd0-abf72504fce7" />
+
+Multiplayer Mode: 
+The user can change their name and can create or join the game via 6-digit alpha-numeric code.
+<img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-52-11" src="https://github.com/user-attachments/assets/31abc063-4888-41bf-bb0d-f9c7d912a18c" />
+
+Match History and Game Stats:
+<img width="1903" height="1009" alt="Screenshot from 2025-08-29 14-53-10" src="https://github.com/user-attachments/assets/5739d8ef-8488-4b23-a583-27e9164dc9ae" />
+
+
+
