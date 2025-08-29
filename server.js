@@ -7,11 +7,10 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  // Adjust if you deploy behind proxy/CDN
   cors: { origin: false }
 });
 
-// serve client
+
 app.use(express.static(path.join(__dirname, "public")));
 
 const PORT = process.env.PORT || 3000;
@@ -19,16 +18,7 @@ server.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
 
-/** ====== In-memory room manager (simple & fast) ====== */
 const rooms = new Map();
-// Each room: {
-//   code: "ABC123",
-//   board: ['','','','','','','','',''],
-//   currentPlayer: 'X',
-//   gameActive: true|false,
-//   players: { X: { id, name }, O: { id, name } },
-//   createdAt: 1710000000
-// }
 
 const LINES = [
   [0,1,2],[3,4,5],[6,7,8],
@@ -37,7 +27,7 @@ const LINES = [
 ];
 
 function createRoomCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no I/O/1/0 to avoid confusion
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; 
   while (true) {
     let s = "";
     for (let i = 0; i < 6; i++) s += chars[Math.floor(Math.random() * chars.length)];
@@ -59,7 +49,6 @@ function resetRoomState(room) {
 }
 
 io.on("connection", (socket) => {
-  // Helper to get the room object for this socket
   const getRoom = () => {
     const code = socket.data?.roomCode;
     return code ? rooms.get(code) : null;
@@ -108,12 +97,11 @@ io.on("connection", (socket) => {
     socket.join(roomCode);
     socket.data = { roomCode, symbol: "O", name: playerName };
 
-    // Let both players know the match is ready
     io.to(roomCode).emit("gameStart", {
       code: roomCode,
       players: { X: room.players.X.name, O: room.players.O.name },
       currentPlayer: "X",
-      yourId: socket.id // only meaningful for the joining client
+      yourId: socket.id 
     });
   });
 
@@ -123,16 +111,14 @@ io.on("connection", (socket) => {
 
     const symbol = socket.data?.symbol;
     if (!symbol) return;
-    if (room.currentPlayer !== symbol) return; // not your turn
+    if (room.currentPlayer !== symbol) return; 
     if (typeof index !== "number" || index < 0 || index > 8) return;
     if (room.board[index] !== "") return;
 
     room.board[index] = symbol;
 
-    // Notify both clients about the move
     io.to(room.code).emit("moveMade", { index, symbol });
 
-    // Check outcome
     const winInfo = checkWin(room.board);
     if (winInfo) {
       room.gameActive = false;
@@ -148,7 +134,6 @@ io.on("connection", (socket) => {
       return;
     }
 
-    // Next turn
     room.currentPlayer = room.currentPlayer === "X" ? "O" : "X";
     io.to(room.code).emit("turn", { currentPlayer: room.currentPlayer });
   });
@@ -173,7 +158,6 @@ io.on("connection", (socket) => {
 
     io.to(room.code).emit("opponentLeft");
 
-    // Clean up empty rooms
     if (!room.players.X && !room.players.O) rooms.delete(room.code);
   });
 
